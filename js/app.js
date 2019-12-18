@@ -2,7 +2,7 @@
  class Word {
 
  	constructor(){
- 		this.words = ['witcher', 'grandpa', 'spiderman', 'mariokart', 'koala', 'touring', 'starwars', 'princess']
+ 		this.words = words
 
  	}
 
@@ -28,14 +28,25 @@
 
 const game = {
     guesses: [],
+    word: '',
+    gameStarted: false,
     guessRemain: 8,
     pause: true,
+    startGame: function(){
+    
+    	this.initiateGame()
+    	this.gameStarted = true;
+
+    },
     inputGuess: function(letter) {
+
+
         if (!this.pause) {
 
             this.guesses.push(letter)
             this.displayGuess()
             this.useGuess()
+            this.matchCheck(letter)
         }
         
 
@@ -72,7 +83,7 @@ const game = {
 
     	this.guessRemain--
     	
-
+// Track and inform user of guessed letters and guesses remaining
     	if (this.guessRemain > 0){
     		$('#guess-number').text(this.guessRemain)
     	}
@@ -84,29 +95,48 @@ const game = {
     },
     initiateGame: function(){
 
+
     	const wordPick = new Word()
     	const word = wordPick.pickWord()
-    	console.log(word)
+    	this.word = word
+    	this.displayWord(word)
+
+    },
+    displayWord: function(word){
+
+    	const wordUl = $('.game-word')
+    	// create each letter by splitting the word into an array, 
+    	const wordArr = word.split('')
+    	// afterward, place each letter as an attribute into each li
+    	wordArr.forEach(letter => {
+    		const hiddenLi = $(`<li id='${letter}'>__<li> `).css({'text-decoration': 'underline'})
+    		wordUl.append(hiddenLi)
+    	})
+    	// underline each li, attempt to display this
+    	//now i need to display each letter of the word hidden with an underline
+
+
+    },
+    matchCheck: function(l){
+    	console.log(this.word)
+    
+    	const letters = $(`#${l}`)
+    	
+    	// idea is to directly search for the letter within li id's <-- this works! no looping!
+    	// to display, now grab the attribute, then change inner text to its letter to uppercase
+    	if (letters !== undefined){
+    		console.log('not undefined')
+    	}
+
 
     }
+    //now i need to run each guess through a check, and see if we find a match *
+    // if so, display the letter on screen
 
-// Track and inform user of guessed letters and guesses remaining
+
 }
 
-game.initiateGame()
-
-// Letters must be guessed with keypresses **
-
-// User loses after 7 or 8 guesses*
-// You must be able to win or lose one round (either guess word correctly or die trying).
-// You must have a game object, a Word class, and event listeners/handlers.
-// There must be no other code in the global scope, everything goes in either the game object, the Word class (or the Letter class if you decide to create one), or event listeners/handlers.
-// Declare your array (wordBank) of possible words in a separate file, linked up in the html before the main app.js file.
-// You may use either plain vanilla JavaScript or jQuery for all event handling and DOM manipulation, but not both.
-
-
-
-
+//no code in the global scope
 
 
 
@@ -121,11 +151,14 @@ game.initiateGame()
 
 $(document.body).keydown((e) => {
 
+	
+
+
     const keyCode = $(e.which)
     const char = String.fromCharCode(keyCode[0])
     if( game.guessRemain !== 0){
 
-    	 game.inputGuess(char)
+    	 game.inputGuess(char.toLowerCase())
     }
    
 
@@ -134,5 +167,6 @@ $(document.body).keydown((e) => {
 
 $(document.body).click(() => {
 
+ 	if (game.gameStarted === false) game.startGame()
 	game.togglePause()
 })
