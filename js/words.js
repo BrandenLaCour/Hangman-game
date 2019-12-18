@@ -1,1 +1,1 @@
-const words = ['witchers','snowboard']
+const words = ['witcher','snowboard', 'cycling', 'basketball', 'batmobile', 'onewheel']
