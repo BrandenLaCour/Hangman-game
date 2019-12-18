@@ -1,0 +1,82 @@
+body {
+
+
+	background-color: black;
+	color: white;
+	
+}
+
+header {
+	display: block;
+	height: 150px;
+	margin-top: 30px;
+	font-size: 2em;
+	text-align: center;
+	border: 2px solid white;
+ 
+}
+
+.word-container {
+	height: 170px;
+	display: flex;
+	margin-top: 100px;
+	justify-content: center;
+
+}
+
+li {
+	display: inline-block;
+	font-size: 2.5em;
+	
+}
+
+.word-container li {
+	text-decoration: underline;
+	margin: 0px 30px;
+}
+
+.user-guess li {
+
+	margin-left: 10px;
+}
+
+
+
+#smiley {
+
+display: flex;
+height: 150px;
+justify-content: center;
+align-items: center;
+
+	}
+
+#face {
+	display: block;
+	width: 200px;
+	height: 100px;
+	border: 2px solid white;
+}
+
+.user-guess {
+
+	display: flex;
+	height: 100px;
+	
+	justify-content: center;
+	
+}
+
+#guess-count {
+
+	display: flex;
+	height: 100px;
+	font-size: 2em;
+	justify-content: center;
+}
+
+p {
+	text-align: center
+}
+
+/*setup background*/
