@@ -124,9 +124,7 @@ const game = {
     	
     	// idea is to directly search for the letter within li id's <-- this works! no looping!
     	// to display, now grab the attribute, then change inner text to its letter to uppercase
-    	if (letters !== undefined){
-    		console.log('not undefined')
-    	}
+    	
 
 
     }
