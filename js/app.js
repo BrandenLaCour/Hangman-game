@@ -8,7 +8,24 @@ class Word {
 
 }
 
+// class Word2 {
 
+//     constructor(word){
+        
+//         this.word = word.split('').map(e => {
+//             return {character: e, guessed: false}
+//         })
+
+
+//     }
+
+
+// }
+
+
+const word3 = new Word2('Spanish')
+
+console.log(word3);
 
 // I went with the initial challenge of trying to do this without guidance. Let me know what you think. (This is why my word class is different)
 // I did read afterwards how the word class was instructed. Definitely a more elegant solution! haha
@@ -136,7 +153,7 @@ const game = {
 
     },
     winCheck: function() {
-        console.log(this.word)
+        
         if (this.guessed.length === this.word.length) {
             
             const userList = $('.user-list').html('')
