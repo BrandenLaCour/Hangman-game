@@ -10,8 +10,8 @@ class Word {
 
 
 
-
-
+// I went with the initial challenge of trying to do this without guidance. Let me know what you think. (This is why my word class is different)
+// I did read afterwards how the word class was instructed. Definitely a more elegant solution! haha
 
 
 
