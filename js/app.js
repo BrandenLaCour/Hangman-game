@@ -18,17 +18,16 @@ class Word {
 
 
 //     }
+//}
 
-
-// }
-
-
-const word3 = new Word2('Spanish')
-
-console.log(word3);
 
 // I went with the initial challenge of trying to do this without guidance. Let me know what you think. (This is why my word class is different)
-// I did read afterwards how the word class was instructed. Definitely a more elegant solution! haha
+// I did read afterwards how the word class was instructed. Definitely a more elegant solution! haha you can see above i added it, but realized it would take a whole refactor to implement it.
+
+
+
+
+
 
 
 
@@ -40,6 +39,7 @@ console.log(word3);
 const game = {
     guesses: [],
     word: '',
+    correctGuesses: 0,
     gameStarted: false,
     guessRemain: 8,
     pause: true,
@@ -72,9 +72,6 @@ const game = {
 
         this.pause = !this.pause
         this.pause ? $('#pause').text('Paused') : $('#pause').text('Click To Pause')
-
-
-
 
     },
     useGuess: function() {
@@ -109,7 +106,7 @@ const game = {
         const wordArr = word.split('')
         // afterward, place each letter as an attribute into each li
         wordArr.forEach(letter => {
-            const hiddenLi = $(`<li id='${letter}'>__<li> `).css({ 'text-decoration': 'underline' })
+            const hiddenLi = $(`<li class='${letter}'>__<li> `).css({ 'text-decoration': 'underline' })
             wordUl.append(hiddenLi)
         })
         // underline each li, attempt to display this
@@ -122,14 +119,18 @@ const game = {
 
         if (!this.pause) {
 
-            const lettersFind = $(`#${l}`).attr('id')
+            const lettersFind = $(`.${l}`).attr('class')
+            
             // need to troubleshoot finding the same element. maybe remove the elements id once found (or change it)
 
-            if ((typeof lettersFind) == 'string') {
-                const letterLi = $(`#${l}`)
+            if ((typeof lettersFind) === 'string') {
+                const letterLi = $(`.${l}`)
+
                 letterLi.text(l)
-                letterLi.attr('id', l.toUpperCase())
-                this.guessed += l
+                letterLi.attr('class', l.toUpperCase())
+                
+                this.correctGuesses = this.correctGuesses + letterLi.length
+                
                 this.winCheck()
 
             } else {
@@ -137,10 +138,7 @@ const game = {
                 this.displayGuess()
                 this.useGuess()
 
-
-
             }
-
 
 
         }
@@ -154,7 +152,8 @@ const game = {
     },
     winCheck: function() {
         
-        if (this.guessed.length === this.word.length) {
+        
+        if (this.correctGuesses === this.word.length) {
             
             const userList = $('.user-list').html('')
             userList.html('<h1>CONGRATS! YOU WIN!</h1>')
@@ -183,6 +182,9 @@ const game = {
 
 
 
+
+
+
 // onkey press, the console should log the key
 
 
@@ -190,10 +192,11 @@ $(document.body).keydown((e) => {
 
 
     const keyCode = $(e.which)
+
     const char = String.fromCharCode(keyCode[0])
  
     if (game.guessRemain !== 0) {
-
+        
         game.matchCheck(char.toLowerCase())
     }
 
